@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MÔ PHỎNG MÃ CHỨNG KHOÁN</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='css/style.css') }}">
+</head>
+<body>
+    <!-- Tiêu đề chính với tông tím đậm -->
+    <header class="header-title">
+        <h1>MÔ PHỎNG MÃ CHỨNG KHOÁN TRONG 1 NĂM</h1>
+    </header>
+
+    <main class="container">
+        <!-- 1. Phần trên: Video phóng to và Chú thích -->
+        <section class="top-section">
+            <div class="video-box">
+                <h3>Video Mô Phỏng Biến Động</h3>
+                <video controls width="100%">
+                    <source src="{{ url_for('static', path='video/mo_phong_chung_khoan.mp4') }}" type="video/mp4">
+                    Trình duyệt không hỗ trợ thẻ video.
+                </video>
+            </div>
+            
+            <div class="explanation-box">
+                <h3>Chú Thích Các Chỉ Số Theo Biểu Đồ</h3>
+                <ul class="color-legend-list">
+                    <li><span class="color-dot" style="background-color: #00ff00;"></span><strong>Màu xanh lá:</strong> Giá Max (Điểm hoặc đường biểu diễn mức giá cao nhất trong giai đoạn).</li>
+                    <li><span class="color-dot" style="background-color: #ff0000;"></span><strong>Màu đỏ:</strong> Giá Min (Điểm hoặc đường biểu diễn mức giá thấp nhất trong giai đoạn).</li>
+                    <li><span class="color-dot" style="background-color: #ffd700;"></span><strong>Màu vàng:</strong> Giá Tham chiếu (Mức giá cơ sở xác định biên độ).</li>
+                    <li><span class="color-dot" style="background-color: #da70d6;"></span><strong>Màu tím:</strong> Giá Trần (Mức giá trần giới hạn tăng).</li>
+                    <li><span class="color-dot" style="background-color: #1e90ff;"></span><strong>Màu xanh dương:</strong> Giá Sàn (Mức giá sàn giới hạn giảm).</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 2. Phần chu kỳ: Biểu đồ cột và Biểu đồ hộp -->
+        <section class="cycle-section">
+            <h2>PHÂN TÍCH TRỰC QUAN THEO CHU KỲ (TUẦN - THÁNG - QUÝ)</h2>
+            
+            <div class="grid-two-columns">
+                <div class="chart-card">
+                    <h3>Biểu đồ Cột</h3>
+                    <p class="chart-desc">Giá trung bình theo Tuần, Tháng và Quý</p>
+                    <img src="{{ url_for('static', path='images/bieu_do_cot.png') }}" alt="Biểu đồ cột chứng khoán">
+                </div>
+
+                <div class="chart-card">
+                    <h3>Biểu đồ Hộp (Boxplot)</h3>
+                    <p class="chart-desc">Phân bố giá theo Tuần, Tháng và Quý</p>
+                    <img src="{{ url_for('static', path='images/bieu_do_hop.png') }}" alt="Biểu đồ hộp chứng khoán">
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Phần phân tích bất thường -->
+        <section class="anomaly-section">
+            <h2>Phân tích các giá trị bất thường (Outliers)</h2>
+            
+            <div class="center-img" style="margin-bottom: 25px;">
+                <h3>Giá trị bất thường (Outliers)</h3>
+                <img src="{{ url_for('static', path='images/outliers_values.png') }}" alt="Giá trị bất thường">
+            </div>
+            
+            <div class="grid-two-columns">
+                <div class="chart-card">
+                    <h3>Tỷ Lệ Phân Bổ Biên Độ Trần - Sàn (365 Ngày)</h3>
+                    <img src="{{ url_for('static', path='images/ty_le_bat_thuong.png') }}" alt="Tỷ lệ vi phạm biên độ trần sàn">
+                </div>
+
+                <div class="chart-card text-card">
+                    <h3>Nhận Xét & Đánh Giá</h3>
+                    <ul class="comment-list">
+                        <li>🟢 <strong>Tuân thủ biên độ (33.7%):</strong> Chiếm tỷ trọng lớn nhất (33.7%).</li>
+                        <li>🟣 <strong>Vượt giá trần (24.9%):</strong> Lực cầu mạnh đẩy giá chạm hoặc vượt mức trần ở nhiều phiên.</li>
+                        <li>🔴 <strong>Tụt giá sàn (25.5%):</strong> Áp lực bán tháo hoặc xu hướng điều chỉnh sâu xuất hiện đáng kể.</li>
+                        <li>🟠 <strong>Vi phạm cả 2 chiều (15.9%):</strong> Tần suất biến động cực kỳ lớn trong năm, đòi hỏi nhà đầu tư phải hết sức cẩn trọng với các rủi ro bất ngờ.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Kết luận -->
+        <section class="conclusion-section">
+            <h2>KẾT LUẬN & ĐÁNH GIÁ CHUNG</h2>
+            <div class="highlight-box">
+                <p>🚀 <strong>Xu hướng chủ đạo:</strong> Giá cổ phiếu trong suốt chu kỳ tuân theo mô hình chữ U kép, trải qua các giai đoạn biến động rõ rệt từ vùng đỉnh đầu năm (Quý 1 với giá trung bình 14,077.56), sụt giảm sâu và tạo đáy tại Quý 2 (7,344.91), phục hồi tích lũy ở Quý 3 (8,913.31) trước khi bứt phá mạnh mẽ trở lại ở Quý 4 (14,879.25).</p>
+                <p>⚠️ <strong>Điểm lưu ý:</strong> Đây là một tài sản có tính đầu cơ cao, độ nhạy cảm lớn trước các cú sốc thông tin và tiềm ẩn rủi ro biến động cấu trúc mạnh mẽ, đòi hỏi nhà đầu tư phải theo dõi sát sao các tín hiệu kỹ thuật để quản trị rủi ro.</p>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
