@@ -1,29 +1,148 @@
-/* Định dạng chung */
+/* ==========================================
+   1. ĐỊNH DẠNG CHUNG & RESET
+   ========================================== */
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth; /* Cuộn mượt khi click menu */
+}
+
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f7f5fa; /* Nền sáng nhẹ ánh tím */
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background-color: #f7f5fa;
     margin: 0;
-    padding: 20px;
+    padding: 20px 0;
     color: #2b2b2b;
+    line-height: 1.6;
 }
 
 .container {
     max-width: 1200px;
     margin: 0 auto;
+    padding: 0 20px;
 }
 
-/* Tiêu đề chính - Tông màu tím đậm sang trọng */
-.header-title {
-    background: linear-gradient(135deg, #4a1c63, #5c207c);
-    color: white;
-    padding: 22px;
+/* ==========================================
+   2. TÁC GIẢ Ở GÓC TRÁI MÀN HÌNH
+   ========================================== */
+.author-top-left {
+    font-size: 1.05rem;
+    color: #3b1151;
+    margin-bottom: 12px;
+    font-weight: 700;
+    text-align: left;
+}
+
+/* ==========================================
+   3. TIÊU ĐỀ NẰM TRONG KHUNG MÀU TÍM ĐẬM
+   ========================================== */
+.header-banner {
+    background: linear-gradient(135deg, #4a1c63 0%, #5c207c 100%) !important;
+    color: #ffffff !important;
+    padding: 30px 25px;
+    border-radius: 12px;
     text-align: center;
-    border-radius: 10px;
     margin-bottom: 25px;
-    box-shadow: 0 4px 10px rgba(59, 17, 81, 0.2);
+    box-shadow: 0 6px 15px rgba(59, 17, 81, 0.25);
 }
 
-/* Phần trên: Video phóng to và Chú thích */
+.main-heading {
+    margin: 0;
+    font-size: 1.8rem;
+    line-height: 1.4;
+    font-weight: 800;
+    color: #ffffff !important;
+    letter-spacing: 0.5px;
+}
+
+/* ==========================================
+   4. THANH ĐIỀU KHIỂN: CĂN ĐỀU, Ô BO GÓC TÍM NHẠT, CHỮ ĐEN
+   ========================================== */
+.navbar-box {
+    margin-bottom: 30px;
+    position: sticky;
+    top: 15px;
+    z-index: 1000;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between; /* Căn đều các ô ra toàn màn hình */
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+}
+
+.nav-link {
+    flex: 1; /* Chia đều chiều rộng */
+    text-align: center;
+    color: #000000 !important; /* Chữ đen rõ nét */
+    text-decoration: none !important; /* Khai tử gạch chân */
+    font-weight: 700;
+    padding: 12px 10px;
+    background-color: #eadef7 !important; /* Màu ô tím nhạt */
+    border: 1px solid #d4c2f0;
+    border-radius: 10px !important; /* Bo góc từng ô */
+    font-size: 0.95rem;
+    transition: all 0.25s ease-in-out;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    display: block;
+}
+
+.nav-link:hover {
+    background-color: #5c207c !important; /* Đổi màu khi di chuột */
+    color: #ffffff !important; /* Chữ trắng khi di chuột */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(92, 32, 124, 0.3);
+}
+
+/* ==========================================
+   5. LỜI MỞ ĐẦU (INTRO SECTION)
+   ========================================== */
+.intro-section {
+    background: linear-gradient(135deg, #2b5876 0%, #4e4376 100%);
+    color: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    margin-bottom: 35px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+}
+
+.intro-section h2 {
+    margin-top: 0;
+    color: #ffd700;
+    font-size: 1.5rem;
+    border-bottom: 2px solid rgba(255, 215, 0, 0.3);
+    padding-bottom: 10px;
+}
+
+.intro-section p {
+    line-height: 1.7;
+    font-size: 1.05rem;
+    margin-bottom: 12px;
+}
+
+.intro-feature-list {
+    list-style-type: none;
+    padding-left: 0;
+    margin-top: 15px;
+}
+
+.intro-feature-list li {
+    font-size: 1rem;
+    line-height: 1.8;
+    margin-bottom: 10px;
+    background: rgba(255, 255, 255, 0.08);
+    padding: 12px 16px;
+    border-radius: 8px;
+    border-left: 4px solid #ffd700;
+}
+
+/* ==========================================
+   6. KHU VỰC VIDEO & CHÚ THÍCH (CÓ THẺ GIÁ MAX/MIN GỌN GÀNG)
+   ========================================== */
 .top-section {
     display: flex;
     gap: 20px;
@@ -39,13 +158,12 @@ body {
     border-top: 4px solid #5c207c;
 }
 
-/* Phóng to video rõ nét */
 .video-box video {
     width: 100%;
-    max-height: 480px; /* Giữ nguyên giá trị này */
+    max-height: 480px;
     border-radius: 6px;
-    object-fit: contain; /* Đảm bảo video hiển thị đầy đủ, không bị cắt */
-    background-color: #000; /* Thêm nền đen nếu video nhỏ hơn khung để nhìn chuyên nghiệp hơn */
+    object-fit: contain;
+    background-color: #000;
 }
 
 .explanation-box {
@@ -62,7 +180,6 @@ body {
     margin-top: 0;
 }
 
-/* Định dạng danh sách chú thích màu sắc thẳng hàng tuyệt đối */
 .color-legend-list {
     list-style: none;
     padding: 0;
@@ -72,7 +189,7 @@ body {
 .color-legend-list li {
     display: flex;
     align-items: flex-start;
-    margin-bottom: 14px;
+    margin-bottom: 12px;
     line-height: 1.5;
     font-size: 0.92em;
 }
@@ -91,11 +208,64 @@ body {
 .color-legend-list strong {
     min-width: 105px;
     display: inline-block;
-    flex-shrink: 0;
     color: #3b1151;
 }
 
-/* Các phần chứa biểu đồ song song */
+/* Định dạng cho Giá Max & Min trong chú thích */
+.legend-stats-container {
+    display: flex;
+    gap: 12px;
+    margin-top: 15px;
+}
+
+.legend-stat-item {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    background: #faf6fc;
+    border: 1px solid #e2d9eb;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+}
+
+.legend-stat-item.max-item {
+    border-left: 4px solid #28a745;
+}
+
+.legend-stat-item.min-item {
+    border-left: 4px solid #dc3545;
+}
+
+.legend-icon {
+    font-size: 1.2rem;
+}
+
+.legend-label {
+    display: block;
+    font-size: 0.78rem;
+    color: #6b5b7a;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.legend-val {
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: #1a1a1a;
+}
+
+.legend-val .unit {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #666;
+}
+
+/* ==========================================
+   7. PHẦN CHU KỲ & KHUNG KẾT LUẬN (CĂN TRÁI, NỀN TÍM NHẠT)
+   ========================================== */
 .cycle-section, .anomaly-section {
     background: white;
     padding: 25px;
@@ -135,34 +305,19 @@ body {
 }
 
 .chart-desc {
-    color: #6b5b7a;
+    color: #6b21a8;
     font-size: 0.88em;
     margin-bottom: 12px;
 }
 
-/* Thu nhỏ kích thước các hình ảnh biểu đồ bên trong card cho gọn gàng */
 .chart-card img {
-    max-width: 75% !important;
+    max-width: 85% !important;
     height: auto;
     display: block;
     margin: 0 auto;
     border-radius: 4px;
 }
 
-/* Thu nhỏ ảnh tổng quan bất thường ở giữa */
-.center-img img {
-    max-width: 45% !important;
-    height: auto;
-    display: block;
-    margin: 0 auto;
-    border-radius: 4px;
-}
-
-.center-img h3 {
-    color: #4a154b;
-}
-
-/* Khung nhận xét bên cạnh */
 .text-card {
     text-align: left !important;
     display: flex;
@@ -185,7 +340,43 @@ body {
     color: #3b2b45;
 }
 
-/* Phần kết luận làm nổi bật với tông tím đậm */
+/* Khung kết luận chu kỳ: Nền tím nhạt, căn lề trái */
+.cycle-evaluation-box {
+    background: #f3ebfc !important;
+    border: 1px solid #d4c2f0 !important;
+    padding: 24px;
+    border-radius: 12px;
+    text-align: left !important;
+    margin-top: 20px;
+    box-shadow: 0 4px 12px rgba(107, 33, 168, 0.05);
+}
+
+.cycle-evaluation-box h3 {
+    margin-top: 0;
+    color: #3b1151;
+    font-size: 1.15rem;
+    border-bottom: 2px solid #e2d9eb;
+    padding-bottom: 10px;
+    text-align: left !important;
+}
+
+.evaluation-list {
+    padding-left: 20px;
+    margin: 12px 0 0 0;
+    line-height: 1.7;
+    text-align: left !important;
+}
+
+.evaluation-list li {
+    margin-bottom: 10px;
+    font-size: 0.95rem;
+    color: #2b2b2b;
+    text-align: left !important;
+}
+
+/* ==========================================
+   8. PHẦN KẾT LUẬN & RESPONSIVE
+   ========================================== */
 .conclusion-section {
     background: #fff;
     padding: 25px;
@@ -209,9 +400,11 @@ body {
     color: #2e103f;
 }
 
-/* Responsive cho thiết bị di động */
 @media (max-width: 768px) {
-    .grid-two-columns, .top-section {
+    .grid-two-columns, .top-section, .nav-container, .legend-stats-container {
         flex-direction: column;
+    }
+    .nav-link {
+        width: 100%;
     }
 }
