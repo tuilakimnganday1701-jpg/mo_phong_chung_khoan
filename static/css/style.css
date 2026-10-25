@@ -6,7 +6,7 @@
 }
 
 html {
-    scroll-behavior: smooth; /* Cuộn mượt khi click menu */
+    scroll-behavior: smooth; /* Cuộn mượt khi click menu & nút quay về */
 }
 
 body {
@@ -69,22 +69,22 @@ body {
 
 .nav-container {
     display: flex;
-    justify-content: space-between; /* Căn đều các ô ra toàn màn hình */
+    justify-content: space-between;
     align-items: center;
     gap: 12px;
     width: 100%;
 }
 
 .nav-link {
-    flex: 1; /* Chia đều chiều rộng */
+    flex: 1;
     text-align: center;
-    color: #000000 !important; /* Chữ đen rõ nét */
-    text-decoration: none !important; /* Khai tử gạch chân */
+    color: #000000 !important;
+    text-decoration: none !important;
     font-weight: 700;
     padding: 12px 10px;
-    background-color: #eadef7 !important; /* Màu ô tím nhạt */
+    background-color: #eadef7 !important;
     border: 1px solid #d4c2f0;
-    border-radius: 10px !important; /* Bo góc từng ô */
+    border-radius: 10px !important;
     font-size: 0.95rem;
     transition: all 0.25s ease-in-out;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
@@ -92,8 +92,8 @@ body {
 }
 
 .nav-link:hover {
-    background-color: #5c207c !important; /* Đổi màu khi di chuột */
-    color: #ffffff !important; /* Chữ trắng khi di chuột */
+    background-color: #5c207c !important;
+    color: #ffffff !important;
     transform: translateY(-2px);
     box-shadow: 0 4px 10px rgba(92, 32, 124, 0.3);
 }
@@ -141,12 +141,12 @@ body {
 }
 
 /* ==========================================
-   6. KHU VỰC VIDEO & CHÚ THÍCH (CÓ THẺ GIÁ MAX/MIN GỌN GÀNG)
+   6. KHU VỰC VIDEO & CHÚ THÍCH
    ========================================== */
 .top-section {
     display: flex;
     gap: 20px;
-    margin-bottom: 30px;
+    margin-bottom: 25px;
 }
 
 .video-box {
@@ -211,7 +211,6 @@ body {
     color: #3b1151;
 }
 
-/* Định dạng cho Giá Max & Min trong chú thích */
 .legend-stats-container {
     display: flex;
     gap: 12px;
@@ -264,7 +263,73 @@ body {
 }
 
 /* ==========================================
-   7. PHẦN CHU KỲ & KHUNG KẾT LUẬN (CĂN TRÁI, NỀN TÍM NHẠT)
+   7. 4 Ô THÔNG SỐ KỸ THUẬT (SAU KHUNG VIDEO)
+   ========================================== */
+.tech-specs-section {
+    background: white;
+    padding: 22px 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.tech-specs-section h3 {
+    color: #3b1151;
+    margin-top: 0;
+    margin-bottom: 18px;
+    font-size: 1.25rem;
+}
+
+.tech-grid-4 {
+    display: flex;
+    gap: 15px;
+}
+
+.tech-card {
+    flex: 1;
+    background: #f3ebfc;
+    border: 1px solid #d4c2f0;
+    border-radius: 10px;
+    padding: 15px 12px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(107, 33, 168, 0.03);
+    transition: transform 0.2s ease;
+}
+
+.tech-card:hover {
+    transform: translateY(-3px);
+}
+
+.tech-icon {
+    font-size: 1.6rem;
+    display: block;
+    margin-bottom: 6px;
+}
+
+.tech-card h4 {
+    margin: 0 0 5px 0;
+    color: #3b1151;
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.tech-card p {
+    margin: 0;
+    color: #2b2b2b;
+    font-size: 0.92rem;
+    font-weight: 600;
+}
+
+.tech-card code {
+    background: rgba(92, 32, 124, 0.1);
+    padding: 2px 6px;
+    border-radius: 4px;
+    color: #5c207c;
+}
+
+/* ==========================================
+   8. PHẦN CHU KỲ & 2 Ô ĐỈNH / SUY THOÁI
    ========================================== */
 .cycle-section, .anomaly-section {
     background: white;
@@ -280,6 +345,72 @@ body {
     margin-top: 0;
     margin-bottom: 20px;
     font-size: 1.4em;
+}
+
+.stats-summary-grid {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 25px;
+    width: 100%;
+}
+
+.stat-card {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 18px 22px;
+    border-radius: 12px;
+    background: #f3ebfc !important;
+    border: 1px solid #d4c2f0 !important;
+    text-align: left !important;
+    box-shadow: 0 3px 8px rgba(107, 33, 168, 0.05);
+}
+
+.stat-card.max-card {
+    border-left: 5px solid #28a745 !important;
+}
+
+.stat-card.min-card {
+    border-left: 5px solid #dc3545 !important;
+}
+
+.stat-icon {
+    font-size: 1.8rem;
+    flex-shrink: 0;
+}
+
+.stat-info {
+    text-align: left !important;
+}
+
+.stat-info h4 {
+    margin: 0 0 4px 0;
+    color: #3b1151;
+    font-size: 0.95rem;
+    font-weight: 700;
+    text-align: left !important;
+}
+
+.stat-value {
+    margin: 0 0 2px 0;
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: #1a1a1a;
+    text-align: left !important;
+}
+
+.stat-value .unit {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #666;
+}
+
+.stat-info small {
+    color: #555;
+    font-size: 0.83rem;
+    display: block;
+    text-align: left !important;
 }
 
 .grid-two-columns {
@@ -318,6 +449,33 @@ body {
     border-radius: 4px;
 }
 
+.center-img-box {
+    background: #ffffff;
+    border: 1px solid #e2d9eb;
+    border-radius: 10px;
+    padding: 18px;
+    margin-bottom: 25px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03);
+}
+
+.center-img-box h3 {
+    margin-top: 5px;
+    color: #4a154b;
+    font-size: 1.1em;
+    margin-bottom: 12px;
+}
+
+.center-img-box img {
+    max-width: 65% !important;
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    border-radius: 6px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
 .text-card {
     text-align: left !important;
     display: flex;
@@ -340,7 +498,6 @@ body {
     color: #3b2b45;
 }
 
-/* Khung kết luận chu kỳ: Nền tím nhạt, căn lề trái */
 .cycle-evaluation-box {
     background: #f3ebfc !important;
     border: 1px solid #d4c2f0 !important;
@@ -375,7 +532,7 @@ body {
 }
 
 /* ==========================================
-   8. PHẦN KẾT LUẬN & RESPONSIVE
+   9. PHẦN KẾT LUẬN CHUNG
    ========================================== */
 .conclusion-section {
     background: #fff;
@@ -400,11 +557,46 @@ body {
     color: #2e103f;
 }
 
-@media (max-width: 768px) {
-    .grid-two-columns, .top-section, .nav-container, .legend-stats-container {
-        flex-direction: column;
-    }
-    .nav-link {
-        width: 100%;
-    }
+/* ==========================================
+   10. PHẦN LỜI CẢM ƠN & NÚT QUAY VỀ ĐẦU TRANG
+   ========================================== */
+.thank-you-section {
+    background: linear-gradient(135deg, #4a1c63 0%, #5c207c 100%);
+    color: #ffffff;
+    padding: 30px;
+    border-radius: 14px;
+    margin-top: 40px;
+    text-align: center;
+    box-shadow: 0 6px 20px rgba(74, 28, 99, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
+
+.thank-you-content h3 {
+    margin-top: 0;
+    color: #ffd700;
+    font-size: 1.4rem;
+    margin-bottom: 12px;
+    letter-spacing: 0.5px;
+}
+
+.thank-you-content p {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    margin-bottom: 15px;
+    color: #f3e8ff;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.author-sign {
+    font-style: italic;
+    color: #ffffff !important;
+    font-weight: 600;
+    font-size: 1.1rem;
+    letter-spacing: 0.5px;
+    margin-top: 10px;
+}
+
+/* Thiết kế nút bấm "Quay lại trang đầu" */
+.back-to
