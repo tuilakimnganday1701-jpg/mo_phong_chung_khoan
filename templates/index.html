@@ -3,27 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GIẢI MÃ THỊ TRƯỜNG: Toàn Cảnh Biến Động & Chiến Lược Đầu Tư Thông Minh</title>
-    <!-- Đường dẫn gọi tệp CSS ngoài -->
-    <link rel="stylesheet" href="style.css">
+    <title>MÔ PHÓNG CHỨNG KHOÁN</title>
+    <!-- Đường dẫn liên kết đến tệp style.css độc lập -->
     <link rel="stylesheet" href="{{ url_for('static', path='css/style.css') }}">
 </head>
 <body id="trang-chu">
     <main class="container">
         
-        <!-- Tác giả nằm góc trái phía trên -->
+        <!-- Tác giả ở góc trái phía trên -->
         <div class="author-top-left">
             👤 Tác giả: <strong>Lê Thị Kim Ngân</strong>
         </div>
 
-        <!-- Tiêu đề nằm trong KHUNG MÀU TÍM ĐẬM -->
+        <!-- Tiêu đề nằm trong khung màu tím đậm -->
         <header class="header-banner">
             <h1 class="main-heading">
-                GIẢI MÃ THỊ TRƯỜNG: TOÀN CẢNH BIẾN ĐỘNG & CHIẾN LƯỢC ĐẦU TƯ THÔNG MINH
+    GIẢI MÃ THỊ TRƯỜNG:<br>
+    TOÀN CẢNH BIẾN ĐỘNG & CHIẾN LƯỢC ĐẦU TƯ THÔNG MINH
             </h1>
         </header>
 
-        <!-- Thanh điều khiển CĂN ĐỀU KHUNG HÌNH, MỖI Ô BO GÓC TÍM NHẠT, CHỮ ĐEN, LIÊN KẾT MƯỢT -->
+        <!-- Thanh điều hướng căn đều, ô bo góc tím nhạt, chữ đen -->
         <nav class="navbar-box">
             <div class="nav-container">
                 <a href="#trang-chu" class="nav-link">🏠 Trang chủ</a>
@@ -48,12 +48,12 @@
                 <li>📈 <strong>Phân tích chu kỳ:</strong> Biểu đồ Hộp và Cột bóc tách chi tiết xu hướng theo Tuần, Tháng và Quý.</li>
                 <li>🛡️ <strong>Quản trị rủi ro định lượng:</strong> Lọc điểm bất thường và vi phạm biên độ bằng công cụ Z-score > 2.5 (cho biên độ High - Low) và thuật toán khoảng tứ vị IQR.</li>
             </ul>
-            <p style="margin-top: 15px; font-weight: 600; color: #a95acd;">
+            <p style="margin-top: 15px; font-weight: 600; color: #fbbf24;">
                 Hãy cùng chúng tôi giải mã dữ liệu và xây dựng chiến lược đầu tư an toàn, hiệu quả ngay hôm nay!
             </p>
         </section>
 
-        <!-- Video mô phỏng -->
+        <!-- Video mô phỏng & Chú thích -->
         <section class="top-section" id="video-section">
             <div class="video-box">
                 <h3>Video Mô Phỏng Biến Động</h3>
@@ -62,7 +62,8 @@
                     Trình duyệt không hỗ trợ thẻ video.
                 </video>
             </div>
-          <div class="explanation-box">
+            
+            <div class="explanation-box">
                 <h3>Chú Thích Các Chỉ Số Theo Biểu Đồ</h3>
                 <ul class="color-legend-list">
                     <li><span class="color-dot" style="background-color: #00ff00;"></span> <strong>Giá Max:</strong> Điểm hoặc đường biểu diễn mức giá cao nhất trong giai đoạn.</li>
@@ -70,10 +71,9 @@
                     <li><span class="color-dot" style="background-color: #ffd700;"></span> <strong>Giá Tham chiếu:</strong> Mức giá cơ sở xác định biên độ.</li>
                     <li><span class="color-dot" style="background-color: #da70d6;"></span> <strong>Giá Trần:</strong> Mức giá trần giới hạn tăng.</li>
                     <li><span class="color-dot" style="background-color: #1e90ff;"></span> <strong>Giá Sàn:</strong> Mức giá sàn giới hạn giảm.</li>
-                    <li style="margin-top: 10px; font-style: italic; color: #6b21a8; border-bottom: 1px dashed #e2d9eb; padding-bottom: 10px;"> Ghép nến: Mỗi cây nến gộp dữ liệu từ 3 ngày giao dịch liên tiếp. </li>
                 </ul>
 
-                <!-- Khung hiển thị Giá Max & Min tinh gọn, đẹp mắt -->
+                <!-- Hộp hiển thị Giá Max & Min tinh gọn -->
                 <div class="legend-stats-container">
                     <div class="legend-stat-item max-item">
                         <span class="legend-icon">🟢</span>
@@ -94,28 +94,58 @@
             </div>
         </section>
 
-        <!-- PHÂN TÍCH THEO CHU KỲ (Tinh gọn: Giá Max/Min + Kết luận đầu tư đơn giản) -->
+        <!-- BỔ SUNG: 4 Ô THÔNG TIN KỸ THUẬT NGAY SAU KHUNG VIDEO -->
+        <section class="tech-specs-section">
+            <h3>⚙️ Thông Số Kỹ Thuật Mô Phỏng</h3>
+            <div class="tech-grid-4">
+                <div class="tech-card">
+                    <span class="tech-icon">📂</span>
+                    <h4>Dữ Liệu Đầu Vào</h4>
+                    <p><code>abc-20.csv</code></p>
+                </div>
+                <div class="tech-card">
+                    <span class="tech-icon">📊</span>
+                    <h4>Quy Mô Nến</h4>
+                    <p>122 <em>(3 ngày / nến)</em></p>
+                </div>
+                <div class="tech-card">
+                    <span class="tech-icon">⏱️</span>
+                    <h4>Thời Gian Mô Phỏng</h4>
+                    <p>60 giây</p>
+                </div>
+                <div class="tech-card">
+                    <span class="tech-icon">📈</span>
+                    <h4>Phương Pháp</h4>
+                    <p>OHLC <em>(Open, High, Low, Close)</em></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Phân tích theo chu kỳ -->
         <section class="cycle-section" id="chu-ky-section">
             <h2>PHÂN TÍCH TRỰC QUAN THEO CHU KỲ (TUẦN - THÁNG - QUÝ)</h2>
             
-            <!-- Thẻ tóm tắt Giá Max & Giá Min toàn năm -->
+            <!-- 2 ô nhỏ bo góc màu tím nhạt: Vị trí đỉnh và Vị trí suy thoái -->
             <div class="stats-summary-grid">
                 <div class="stat-card max-card">
                     <span class="stat-icon">🟢</span>
                     <div class="stat-info">
-                        <small>Đạt đỉnh tại Quý 1</small>
+                        <h4>Vị Trí Đỉnh</h4>
+                        <p class="stat-value">24,087.34 <span class="unit">VNĐ</span></p>
+                        <small>Đạt đỉnh tăng trưởng tại Quý 1</small>
                     </div>
                 </div>
 
                 <div class="stat-card min-card">
                     <span class="stat-icon">🔴</span>
                     <div class="stat-info">
+                        <h4>Vị Trí Suy Thoái</h4>
+                        <p class="stat-value">3,509.00 <span class="unit">VNĐ</span></p>
                         <small>Chạm đáy suy thoái tại Quý 2</small>
                     </div>
                 </div>
             </div>
 
-            <!-- Biểu đồ -->
             <div class="grid-two-columns" style="margin-bottom: 25px;">
                 <div class="chart-card">
                     <h3>Biểu đồ Cột</h3>
@@ -130,7 +160,7 @@
                 </div>
             </div>
 
-            <!-- Khung Kết luận đầu tư đơn giản & Đánh giá chung -->
+            <!-- Khung kết luận chu kỳ: Căn trái, nền tím nhạt -->
             <div class="cycle-evaluation-box">
                 <h3>📌 Kết Luận & Đánh Giá Chung Theo Chu Kỳ</h3>
                 <ul class="evaluation-list">
@@ -145,7 +175,8 @@
         <section class="anomaly-section" id="rui-ro-section">
             <h2>Phân tích các giá trị bất thường & Rủi ro (Outliers)</h2>
             
-            <div class="center-img" style="margin-bottom: 25px;">
+            <!-- Ảnh outliers đã được bọc gọn gàng, không bị tràn màn hình -->
+            <div class="center-img-box">
                 <h3>Giá trị bất thường (Outliers)</h3>
                 <img src="{{ url_for('static', path='images/outliers_values.png') }}" alt="Giá trị bất thường">
             </div>
@@ -172,25 +203,47 @@
         <section class="conclusion-section" id="ket-luan-section">
             <h2>KẾT LUẬN & ĐÁNH GIÁ CHUNG</h2>
             <div class="highlight-box">
-                <p>🚀 <strong>Xu hướng chủ đạo:</strong> Giá cổ phiếu trong suốt chu kỳ tuân theo mô hình chữ U kép, trải qua các giai đoạn biến động rõ rệt từ vùng đỉnh đầu năm (Quý 1 với giá trung bình 14,077.56), sụt giảm sâu và tạo đáy tại Quý 2 (7,344.91), phục hồi tích lũy ở Quý 3 (8,913.31) trước khi bứt phá mạnh mẽ trở lại ở Quý 4 (14,879.25).</p>
-                <p>⚠️ <strong>Điểm lưu ý:</strong> Đây là một tài sản có tính đầu cơ cao, độ nhạy cảm lớn trước các cú sốc thông tin và tiềm ẩn rủi ro biến động cấu trúc mạnh mẽ, đòi hỏi nhà đầu tư phải theo dõi sát sao các tín hiệu kỹ thuật để quản trị rủi ro.</p>
+                <p>🚀 <strong>Xu hướng chủ đạo:</strong> Giá cổ phiếu trong suốt chu kỳ tuân theo mô hình chữ U kép, trải qua các giai đoạn biến động rõ rệt từ vùng đỉnh đầu năm (Quý 1 với giá trung bình 14,077.56)[cite: 2], sụt giảm sâu và tạo đáy tại Quý 2 (7,344.91)[cite: 2], phục hồi tích lũy ở Quý 3 (8,913.31)[cite: 2] trước khi bứt phá mạnh mẽ trở lại ở Quý 4 (14,879.25)[cite: 2].</p>
+                <p>⚠️ <strong>Điểm lưu ý:</strong> Đây là một tài sản có tính đầu cơ cao, độ nhạy cảm lớn trước các cú sốc thông tin và tiềm ẩn rủi ro biến động cấu trúc mạnh mẽ, đòi hỏi nhà đầu tư phải theo dõi sát sao các tín hiệu kỹ thuật để quản trị rủi ro[cite: 2].</p>
             </div>
         </section>
-      <!-- VÙNG HIỂN THỊ CÁC VIDEO KẾT QUẢ ĐƯỢC CHÈN ĐỘNG Ở CUỐI TRANG -->
+
+       <!-- Phần Cảm ơn & Nút dấu (+) nạp tệp CSV mới ở cuối bài -->
+        <footer class="thank-you-section">
+            <div class="thank-you-content">
+                <h3>🙏 LỜI CẢM ƠN</h3>
+                <p>
+                    Xin trân trọng cảm ơn quý thầy cô, các bạn sinh viên và quý độc giả đã dành thời gian theo dõi, nghiên cứu và trải nghiệm báo cáo phân tích dữ liệu chứng khoán này. 
+                </p>
+                <p class="author-sign">
+                    — Thực hiện bởi: <strong>Lê Thị Kim Ngân</strong> —
+                </p>
+                
+                <!-- Thay thế nút quay lại trang đầu bằng nút dấu (+) để nạp tệp CSV mới -->
+                <div style="margin-top: 25px; text-align: center;" id="add-csv-section">
+                    <p style="color: #cbd5e1; font-size: 14px; margin-bottom: 12px;">Thêm tệp dữ liệu mô phỏng mới (.csv):</p>
+                    <label for="csv-file-input" style="display: inline-flex; align-items: center; justify-content: center; width: 50px; height: 50px; background-color: #8b5cf6; color: white; border-radius: 50%; font-size: 28px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4); transition: transform 0.2s, background 0.2s;" title="Thêm tệp CSV mới">
+                        +
+                    </label>
+                    <input type="file" id="csv-file-input" accept=".csv" style="display: none;" onchange="handleCSVUpload(event)">
+                </div>
+            </div>
+        </footer>
+
+        <!-- VÙNG HIỂN THỊ CÁC VIDEO KẾT QUẢ ĐƯỢC CHÈN ĐỘNG Ở CUỐI TRANG -->
         <div id="dynamic-video-container" style="margin-top: 30px; display: flex; flex-direction: column; gap: 30px;">
         </div>
-
     </main>
 
-    <!-- SCRIPT XỬ LÝ TẢI LỆNH CSV VÀ HIỂN THỊ VIDEO KẾT QUẢ -->
+    <!-- SCRIPT XỬ LÝ TẢI TỆP CSV VÀ HIỂN THỊ VIDEO KẾT QUẢ -->
     <script>
         async function handleCSVUpload(event) {
             const file = event.target.files[0];
             if (!file) return;
 
-            // Kiểm tra nhanh định dạng phía client
+            // Kiểm tra định dạng phía client bắt buộc phải là .csv
             if (!file.name.toLowerCase().endsWith('.csv')) {
-                alert("Vui lòng chọn tệp có định dạng .csv hợp lệ!");
+                alert("Vui lòng chỉ chọn tệp có định dạng .csv!");
                 event.target.value = '';
                 return;
             }
@@ -231,7 +284,7 @@
                     `;
 
                     container.appendChild(card);
-                    // Tự động cuộn mượt xuống video kết quả mới sinh ra
+                    // Tự động cuộn mượt xuống khung video kết quả mới sinh ra ở đáy trang
                     card.scrollIntoView({ behavior: 'smooth' });
                 } else {
                     alert("Lỗi xử lý: " + result.error);
@@ -245,4 +298,4 @@
         }
     </script>
 </body>
-</html>  
+</html>
