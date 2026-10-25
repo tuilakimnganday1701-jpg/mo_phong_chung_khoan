@@ -9,9 +9,9 @@ from fastapi.templating import Jinja2Templates
 app = FastAPI()
 
 # BẮT BUỘC PHẢI CÓ name="static" ĐỂ url_for NHẬN DIỆN ĐƯỢC
-app.mount("/static", StaticFiles(directory="static"), name="static")
+app.mount("/static", StaticFiles(directory="static"), name="static")[cite: 4]
 
-templates = Jinja2Templates(directory="templates")
+templates = Jinja2Templates(directory="templates")[cite: 4]
 
 # Thư mục lưu trữ tệp CSV tải lên
 UPLOAD_DIR = "static/uploads"
@@ -19,11 +19,11 @@ os.makedirs(UPLOAD_DIR, exist_ok=True)
 
 @app.get("/", response_class=HTMLResponse)
 async def read_root(request: Request):
-    return templates.TemplateResponse(request, "index.html", {})
+    return templates.TemplateResponse(request, "index.html", {})[cite: 4]
 
 @app.post("/api/upload-csv")
 async def upload_csv(file: UploadFile = File(...)):
-    """API nhận tệp CSV, kiểm tra định dạng và trả về video mô phỏng tương ứng"""
+    """API nhận tệp CSV, kiểm tra định dạng và trả về video tương ứng với tên tệp"""
     try:
         # Kiểm tra phần mở rộng tệp có phải là .csv không
         file_extension = os.path.splitext(file.filename)[1].lower()
@@ -33,24 +33,35 @@ async def upload_csv(file: UploadFile = File(...)):
                 content={"success": False, "error": "Chỉ chấp nhận tệp có định dạng .csv!"}
             )
         
-        # Tạo tên tệp độc nhất để tránh bị trùng lặp
+        # Tạo tên tệp độc nhất để tránh bị trùng lặp trong thư mục uploads
         unique_filename = f"{uuid.uuid4()}{file_extension}"
         file_path = os.path.join(UPLOAD_DIR, unique_filename)
         
         with open(file_path, "wb") as buffer:
             shutil.copyfileobj(file.file, buffer)
             
-        # Đường dẫn video mô phỏng kết quả trả về
-        simulated_video_url = f"/static/video/mo_phong_chung_khoan.mp4"
+        # Lấy tên gốc của tệp CSV (không bao gồm phần mở rộng .csv)
+        # Ví dụ: người dùng tải lên "abc-21.csv" thì base_name sẽ là "abc-21"
+        base_name = os.path.splitext(file.filename)[0]
         
+        # Đường dẫn tới video tương ứng trong thư mục static/video/
+        target_video_path = os.path.join("static", "video", f"{base_name}.mp4")
+        
+        # Kiểm tra xem trong thư mục static/video/ đã có video ứng với tên tệp này chưa
+        if os.path.exists(target_video_path):
+            video_url = f"/static/video/{base_name}.mp4"
+        else:
+            # Nếu chưa có video riêng tương ứng, fallback về video mặc định
+            video_url = f"/static/video/mo_phong_chung_khoan.mp4"
+            
         return JSONResponse(content={
             "success": True,
             "filename": file.filename,
-            "video_url": simulated_video_url
+            "video_url": video_url
         })
     except Exception as e:
         return JSONResponse(status_code=500, content={"success": False, "error": str(e)})
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("main:app", host="127.0.0.1", port=8000, reload=True)
+    uvicorn.run("main:app", host="127.0.0.1", port=8000, reload=True)[cite: 4]
