@@ -9,9 +9,9 @@ from fastapi.templating import Jinja2Templates
 app = FastAPI()
 
 # BẮT BUỘC PHẢI CÓ name="static" ĐỂ url_for NHẬN DIỆN ĐƯỢC
-app.mount("/static", StaticFiles(directory="static"), name="static")[cite: 4]
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
-templates = Jinja2Templates(directory="templates")[cite: 4]
+templates = Jinja2Templates(directory="templates")
 
 # Thư mục lưu trữ tệp CSV tải lên
 UPLOAD_DIR = "static/uploads"
@@ -19,7 +19,7 @@ os.makedirs(UPLOAD_DIR, exist_ok=True)
 
 @app.get("/", response_class=HTMLResponse)
 async def read_root(request: Request):
-    return templates.TemplateResponse(request, "index.html", {})[cite: 4]
+    return templates.TemplateResponse(request, "index.html", {})
 
 @app.post("/api/upload-csv")
 async def upload_csv(file: UploadFile = File(...)):
@@ -64,4 +64,4 @@ async def upload_csv(file: UploadFile = File(...)):
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("main:app", host="127.0.0.1", port=8000, reload=True)[cite: 4]
+    uvicorn.run("main:app", host="127.0.0.1", port=8000, reload=True)
