@@ -190,7 +190,7 @@ def generate_stock_video(csv_path: str, output_video_path: str):
     )
 
     writer = FFMpegWriter(
-        fps=max(5, int(n_candles / 10)), 
+        fps=10, 
         metadata=dict(artist='Kim Ngan'), 
         bitrate=1800, 
         codec='libx264',
