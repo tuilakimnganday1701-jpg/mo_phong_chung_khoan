@@ -208,94 +208,34 @@
             </div>
         </section>
 
-       <!-- Phần Cảm ơn & Nút dấu (+) nạp tệp CSV mới ở cuối bài -->
-        <footer class="thank-you-section">
-            <div class="thank-you-content">
-                <h3>🙏 LỜI CẢM ƠN</h3>
-                <p>
+      <!-- Phần Cảm ơn & Mã QR dẫn đến tài liệu PDF -->
+        <footer class="thank-you-section" style="margin-top: 50px; text-align: center; padding: 30px;">
+            <div class="thank-you-content" style="max-width: 600px; margin: 0 auto;">
+                <h3 style="color: #c084fc; margin-bottom: 15px;">LỜI CẢM ƠN</h3>
+                <p style="color: #cbd5e1; line-height: 1.6; margin-bottom: 15px;">
                     Xin trân trọng cảm ơn quý thầy cô, các bạn sinh viên và quý độc giả đã dành thời gian theo dõi, nghiên cứu và trải nghiệm báo cáo phân tích dữ liệu chứng khoán này. 
                 </p>
-                <p class="author-sign">
+                <p class="author-sign" style="color: #a78bfa; font-weight: bold; margin-bottom: 25px;">
                     — Thực hiện bởi: <strong>Lê Thị Kim Ngân</strong> —
                 </p>
                 
-                <!-- Thay thế nút quay lại trang đầu bằng nút dấu (+) để nạp tệp CSV mới -->
-                <div style="margin-top: 25px; text-align: center;" id="add-csv-section">
-                    <p style="color: #cbd5e1; font-size: 14px; margin-bottom: 12px;">Thêm tệp dữ liệu mô phỏng mới (.csv):</p>
-                    <label for="csv-file-input" style="display: inline-flex; align-items: center; justify-content: center; width: 50px; height: 50px; background-color: #8b5cf6; color: white; border-radius: 50%; font-size: 28px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4); transition: transform 0.2s, background 0.2s;" title="Thêm tệp CSV mới">
-                        +
-                    </label>
-                    <input type="file" id="csv-file-input" accept=".csv" style="display: none;" onchange="handleCSVUpload(event)">
+                <!-- Khu vực hiển thị mã QR dẫn đến tệp PDF báo cáo -->
+                <div style="margin-top: 20px; padding: 20px; background: #181028; border: 1px solid #8b5cf6; border-radius: 12px; display: inline-block;">
+                    <p style="color: #cbd5e1; font-size: 14px; margin-bottom: 12px;">Quét mã QR để xem báo cáo PDF chi tiết:</p>
+                    
+                    <!-- Hình ảnh mã QR (Bạn bỏ ảnh QR vào thư mục static/images/qrcode.png) -->
+                    <a href="/static/pdf/bao_cao.pdf" target="_blank" title="Mở tệp PDF">
+                        <img src="/static/images/qrcode.png" alt="QR Code Báo Cáo PDF" style="width: 130px; height: 130px; border-radius: 8px; border: 2px solid #8b5cf6; background: white; padding: 5px; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                    </a>
+                    
+                    <div style="margin-top: 12px;">
+                        <a href="/static/pdf/bao_cao.pdf" target="_blank" style="color: #c084fc; font-size: 14px; text-decoration: underline; font-weight: 500;">
+                            Hoặc bấm vào đây để xem trực tiếp PDF
+                        </a>
+                    </div>
                 </div>
             </div>
         </footer>
-
-        <!-- VÙNG HIỂN THỊ CÁC VIDEO KẾT QUẢ ĐƯỢC CHÈN ĐỘNG Ở CUỐI TRANG -->
-        <div id="dynamic-video-container" style="margin-top: 30px; display: flex; flex-direction: column; gap: 30px;">
-        </div>
     </main>
-
-    <!-- SCRIPT XỬ LÝ TẢI TỆP CSV VÀ HIỂN THỊ VIDEO KẾT QUẢ -->
-    <script>
-        async function handleCSVUpload(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-
-            // Kiểm tra định dạng phía client bắt buộc phải là .csv
-            if (!file.name.toLowerCase().endsWith('.csv')) {
-                alert("Vui lòng chỉ chọn tệp có định dạng .csv!");
-                event.target.value = '';
-                return;
-            }
-
-            const formData = new FormData();
-            formData.append("file", file);
-
-            alert("Đang tải tệp CSV lên và xử lý tạo video mô phỏng...");
-
-            try {
-                const response = await fetch('/api/upload-csv', {
-                    method: 'POST',
-                    body: formData
-                });
-
-                const result = await response.json();
-
-                if (result.success) {
-                    const container = document.getElementById('dynamic-video-container');
-                    
-                    const card = document.createElement('div');
-                    card.className = "video-box";
-                    card.style.background = "#181028";
-                    card.style.border = "1px solid #8b5cf6";
-                    card.style.padding = "20px";
-                    card.style.borderRadius = "12px";
-                    
-                    card.innerHTML = `
-                        <h3 style="color: #c084fc; margin-bottom: 10px;">🎬 Kết Quả Mô Phỏng Từ Tệp: ${result.filename}</h3>
-                        <div style="display: flex; gap: 20px; align-items: center; flex-wrap: wrap;">
-                            <div style="flex: 1; min-width: 300px; width: 100%;">
-                                <video controls width="100%" style="border-radius: 8px;">
-                                    <source src="${result.video_url}" type="video/mp4">
-                                    Trình duyệt không hỗ trợ thẻ video.
-                                </video>
-                            </div>
-                        </div>
-                    `;
-
-                    container.appendChild(card);
-                    // Tự động cuộn mượt xuống khung video kết quả mới sinh ra ở đáy trang
-                    card.scrollIntoView({ behavior: 'smooth' });
-                } else {
-                    alert("Lỗi xử lý: " + result.error);
-                }
-            } catch (err) {
-                console.error(err);
-                alert("Đã xảy ra lỗi kết nối đến server!");
-            }
-
-            event.target.value = '';
-        }
-    </script>
 </body>
 </html>
