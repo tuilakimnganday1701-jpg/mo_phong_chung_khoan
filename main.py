@@ -6,16 +6,18 @@ from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
+# IMPORT HÀM TỪ TỆP CODE RIÊNG CỦA BẠN
+from code_python import generate_stock_video
+
 app = FastAPI()
 
-# BẮT BUỘC PHẢI CÓ name="static" ĐỂ url_for NHẬN DIỆN ĐƯỢC
 app.mount("/static", StaticFiles(directory="static"), name="static")
-
 templates = Jinja2Templates(directory="templates")
 
-# Thư mục lưu trữ tệp CSV tải lên
 UPLOAD_DIR = "static/uploads"
+VIDEO_DIR = "static/video"
 os.makedirs(UPLOAD_DIR, exist_ok=True)
+os.makedirs(VIDEO_DIR, exist_ok=True)
 
 @app.get("/", response_class=HTMLResponse)
 async def read_root(request: Request):
@@ -23,9 +25,8 @@ async def read_root(request: Request):
 
 @app.post("/api/upload-csv")
 async def upload_csv(file: UploadFile = File(...)):
-    """API nhận tệp CSV, kiểm tra định dạng và trả về video tương ứng với tên tệp"""
+    """API nhận tệp CSV, gọi code Python riêng để tạo video và trả về kết quả"""
     try:
-        # Kiểm tra phần mở rộng tệp có phải là .csv không
         file_extension = os.path.splitext(file.filename)[1].lower()
         if file_extension != ".csv":
             return JSONResponse(
@@ -33,26 +34,22 @@ async def upload_csv(file: UploadFile = File(...)):
                 content={"success": False, "error": "Chỉ chấp nhận tệp có định dạng .csv!"}
             )
         
-        # Tạo tên tệp độc nhất để tránh bị trùng lặp trong thư mục uploads
-        unique_filename = f"{uuid.uuid4()}{file_extension}"
-        file_path = os.path.join(UPLOAD_DIR, unique_filename)
+        # Lưu tệp CSV tải lên
+        base_name = os.path.splitext(file.filename)[0]
+        csv_save_path = os.path.join(UPLOAD_DIR, f"{base_name}_{uuid.uuid4()}{file_extension}")
         
-        with open(file_path, "wb") as buffer:
+        with open(csv_save_path, "wb") as buffer:
             shutil.copyfileobj(file.file, buffer)
             
-        # Lấy tên gốc của tệp CSV (không bao gồm phần mở rộng .csv)
-        # Ví dụ: người dùng tải lên "abc-21.csv" thì base_name sẽ là "abc-21"
-        base_name = os.path.splitext(file.filename)[0]
+        # Đường dẫn tệp video đầu ra tương ứng (ví dụ: static/video/abc-21.mp4)
+        output_video_filename = f"{base_name}.mp4"
+        output_video_path = os.path.join(VIDEO_DIR, output_video_filename)
         
-        # Đường dẫn tới video tương ứng trong thư mục static/video/
-        target_video_path = os.path.join("static", "video", f"{base_name}.mp4")
-        
-        # Kiểm tra xem trong thư mục static/video/ đã có video ứng với tên tệp này chưa
-        if os.path.exists(target_video_path):
-            video_url = f"/static/video/{base_name}.mp4"
-        else:
-            # Nếu chưa có video riêng tương ứng, fallback về video mặc định
-            video_url = f"/static/video/mo_phong_chung_khoan.mp4"
+        # GỌI HÀM TỪ TỆP code_python.py ĐỂ TỰ ĐỘNG TẠO VIDEO NẾU CHƯA CÓ
+        if not os.path.exists(output_video_path):
+            generate_stock_video(csv_save_path, output_video_path)
+
+        video_url = f"/static/video/{output_video_filename}"
             
         return JSONResponse(content={
             "success": True,
