@@ -208,7 +208,7 @@
             </div>
         </section>
 
-      <!-- Phần Cảm ơn & Mã QR dẫn đến tài liệu PDF -->
+   <!-- Phần Cảm ơn & Mã QR dẫn đến tài liệu PDF -->
         <footer class="thank-you-section" style="margin-top: 50px; text-align: center; padding: 30px;">
             <div class="thank-you-content" style="max-width: 600px; margin: 0 auto;">
                 <h3 style="color: #c084fc; margin-bottom: 15px;">LỜI CẢM ƠN</h3>
@@ -223,7 +223,7 @@
                 <div style="margin-top: 20px; padding: 20px; background: #181028; border: 1px solid #8b5cf6; border-radius: 12px; display: inline-block;">
                     <p style="color: #cbd5e1; font-size: 14px; margin-bottom: 12px;">Quét mã QR để xem báo cáo PDF chi tiết:</p>
                     
-                    <!-- Hình ảnh mã QR (Bạn bỏ ảnh QR vào thư mục static/images/qrcode.png) -->
+                    <!-- Hình ảnh mã QR -->
                     <a href="/static/pdf/bao_cao.pdf" target="_blank" title="Mở tệp PDF">
                         <img src="/static/images/qrcode.png" alt="QR Code Báo Cáo PDF" style="width: 130px; height: 130px; border-radius: 8px; border: 2px solid #8b5cf6; background: white; padding: 5px; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
                     </a>
@@ -237,5 +237,48 @@
             </div>
         </footer>
     </main>
+
+    <script>
+        document.getElementById('upload-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const fileInput = document.getElementById('csv-file');
+            const loadingDiv = document.getElementById('loading');
+            const errorDiv = document.getElementById('error-msg');
+            const resultImg = document.getElementById('result-image');
+            
+            if (fileInput.files.length === 0) {
+                alert('Vui lòng chọn một tệp CSV!');
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('file', fileInput.files[0]);
+
+            loadingDiv.style.display = 'block';
+            errorDiv.textContent = '';
+            resultImg.style.display = 'none';
+
+            try {
+                const response = await fetch('/api/upload-csv', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const data = await response.json();
+                loadingDiv.style.display = 'none';
+
+                if (response.ok && data.success) {
+                    resultImg.src = data.image_url + '?t=' + new Date().getTime();
+                    resultImg.style.display = 'block';
+                } else {
+                    errorDiv.textContent = data.error || 'Đã xảy ra lỗi khi xử lý tệp.';
+                }
+            } catch (err) {
+                loadingDiv.style.display = 'none';
+                errorDiv.textContent = 'Lỗi kết nối tới máy chủ: ' + err.message;
+            }
+        });
+    </script>
 </body>
 </html>
