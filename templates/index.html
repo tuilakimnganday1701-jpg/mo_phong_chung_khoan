@@ -219,41 +219,42 @@
                     — Thực hiện bởi: <strong>Lê Thị Kim Ngân</strong> —
                 </p>
                 
-                <!-- Khu vực hiển thị mã QR dẫn đến tệp PDF báo cáo -->
-                <div style="margin-top: 20px; padding: 20px; background: #181028; border: 1px solid #8b5cf6; border-radius: 12px; display: inline-block;">
-                    <p style="color: #cbd5e1; font-size: 14px; margin-bottom: 12px;">Quét mã QR để xem báo cáo PDF chi tiết:</p>
-                    
-                    <!-- Hình ảnh mã QR -->
-                    <a href="/static/pdf/bao_cao.pdf" target="_blank" title="Mở tệp PDF">
-                        <img src="/static/images/qrcode.png" alt="QR Code Báo Cáo PDF" style="width: 130px; height: 130px; border-radius: 8px; border: 2px solid #8b5cf6; background: white; padding: 5px; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
-                    </a>
-                    
-                    <div style="margin-top: 12px;">
-                        <a href="/static/pdf/bao_cao.pdf" target="_blank" style="color: #c084fc; font-size: 14px; text-decoration: underline; font-weight: 500;">
-                            Hoặc bấm vào đây để xem trực tiếp PDF
-                        </a>
-                    </div>
-                </div>
+<!-- Khung tải tệp dạng dấu cộng (+) đặt ở dưới phần Lời cảm ơn -->
+        <div class="upload-container">
+            <div class="upload-box" onclick="document.getElementById('csv-file').click()">
+                <div class="plus-icon">+</div>
+                <p class="upload-text">Nhấn vào đây để chọn tệp dữ liệu <strong>.csv</strong></p>
+                <div id="file-name" class="file-name"></div>
             </div>
-        </footer>
+            <!-- Thẻ input ẩn để nhận tệp CSV -->
+            <input type="file" id="csv-file" accept=".csv" style="display: none;">
+
+            <div id="loading" class="loading">Đang xử lý dữ liệu và vẽ biểu đồ, vui lòng chờ trong giây lát...</div>
+            <div id="error-msg" class="error-msg"></div>
+        </div>
+
+        <!-- Phần hiển thị hình ảnh kết quả xuất ra ngay bên dưới -->
+        <div class="result-section">
+            <img id="result-image" alt="Biểu đồ OHLC Max/Min" />
+        </div>
     </main>
 
     <script>
-        document.getElementById('upload-form').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            const fileInput = document.getElementById('csv-file');
-            const loadingDiv = document.getElementById('loading');
-            const errorDiv = document.getElementById('error-msg');
-            const resultImg = document.getElementById('result-image');
-            
-            if (fileInput.files.length === 0) {
-                alert('Vui lòng chọn một tệp CSV!');
-                return;
-            }
+        const fileInput = document.getElementById('csv-file');
+        const fileNameDiv = document.getElementById('file-name');
+        const loadingDiv = document.getElementById('loading');
+        const errorDiv = document.getElementById('error-msg');
+        const resultImg = document.getElementById('result-image');
+
+        // Tự động gửi tệp lên server ngay khi chọn xong tệp CSV qua khung dấu cộng
+        fileInput.addEventListener('change', async function() {
+            if (fileInput.files.length === 0) return;
+
+            const file = fileInput.files[0];
+            fileNameDiv.textContent = `Tệp đã chọn: ${file.name}`;
 
             const formData = new FormData();
-            formData.append('file', fileInput.files[0]);
+            formData.append('file', file);
 
             loadingDiv.style.display = 'block';
             errorDiv.textContent = '';
@@ -269,6 +270,7 @@
                 loadingDiv.style.display = 'none';
 
                 if (response.ok && data.success) {
+                    // Hiển thị hình ảnh kết quả trả về từ server ngay bên dưới
                     resultImg.src = data.image_url + '?t=' + new Date().getTime();
                     resultImg.style.display = 'block';
                 } else {
