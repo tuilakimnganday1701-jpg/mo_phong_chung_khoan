@@ -208,80 +208,91 @@
             </div>
         </section>
 
-  <footer class="thank-you-section" style="margin-top: 10px; text-align: center; padding: 10px 0;">
-            <div class="thank-you-content" style="max-width: 600px; margin: 0 auto;">
-                <h3 style="color: #c084fc; margin-bottom: 15px;">LỜI CẢM ƠN</h3>
-                <p style="color: #cbd5e1; line-height: 1.6; margin-bottom: 15px;">
-                    Xin trân trọng cảm ơn quý thầy cô, các bạn sinh viên và quý độc giả đã dành thời gian theo dõi, nghiên cứu và trải nghiệm báo cáo phân tích dữ liệu chứng khoán này. 
-                </p>
-                <p class="author-sign" style="color: #a78bfa; font-weight: bold; margin-bottom: 5px;">
-                    — Thực hiện bởi: <strong>Lê Thị Kim Ngân</strong> —
-                </p>
+ <!-- Phần Cảm ơn & Nút dấu (+) nạp tệp CSV mới ở cuối bài -->
+    <footer class="thank-you-section">
+        <div class="thank-you-content">
+            <h3>LỜI CẢM ƠN</h3>
+            <p>
+                Xin trân trọng cảm ơn quý thầy cô, các bạn sinh viên và quý độc giả đã dành thời gian theo dõi, nghiên cứu và trải nghiệm báo cáo phân tích dữ liệu chứng khoán này. 
+            </p>
+            <p class="author-sign">
+                — Thực hiện bởi: <strong>Lê Thị Kim Ngân</strong> —
+            </p>
+            
+            <!-- Nút dấu (+) để nạp tệp CSV mới -->
+            <div style="margin-top: 25px; text-align: center;" id="add-csv-section">
+                <p style="color: #cbd5e1; font-size: 14px; margin-bottom: 12px;">Thêm tệp dữ liệu mô phỏng mới (.csv):</p>
+                <label for="csv-file-input" style="display: inline-flex; align-items: center; justify-content: center; width: 50px; height: 50px; background-color: #8b5cf6; color: white; border-radius: 50%; font-size: 28px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4); transition: transform 0.2s, background 0.2s;" title="Thêm tệp CSV mới">
+                    +
+                </label>
+                <input type="file" id="csv-file-input" accept=".csv" style="display: none;" onchange="handleCSVUpload(event)">
             </div>
-        </footer>
-
-        <!-- Khung tải tệp dạng dấu cộng (+) đặt ở dưới phần Lời cảm ơn -->
-        <div class="upload-container">
-            <div class="upload-box" onclick="document.getElementById('csv-file').click()">
-                <div class="plus-icon">+</div>
-                <p class="upload-text">Nhấn vào đây để chọn tệp dữ liệu <strong>.csv</strong></p>
-                <div id="file-name" class="file-name"></div>
-            </div>
-            <!-- Thẻ input ẩn để nhận tệp CSV -->
-            <input type="file" id="csv-file" accept=".csv" style="display: none;">
-
-            <div id="loading" class="loading">Đang xử lý dữ liệu và vẽ biểu đồ, vui lòng chờ trong giây lát...</div>
-            <div id="error-msg" class="error-msg"></div>
         </div>
+    </footer>
 
-        <!-- Phần hiển thị hình ảnh kết quả xuất ra ngay bên dưới -->
-        <div class="result-section">
-            <img id="result-image" alt="Biểu đồ OHLC Max/Min" />
-        </div>
-    </main>
+    <!-- VÙNG HIỂN THỊ CÁC HÌNH ẢNH BIỂU ĐỒ KẾT QUẢ ĐƯỢC CHÈN ĐỘNG Ở CUỐI TRANG -->
+    <div id="dynamic-image-container" style="margin-top: 30px; display: flex; flex-direction: column; gap: 30px;">
+    </div>
+</main>
 
-    <script>
-        const fileInput = document.getElementById('csv-file');
-        const fileNameDiv = document.getElementById('file-name');
-        const loadingDiv = document.getElementById('loading');
-        const errorDiv = document.getElementById('error-msg');
-        const resultImg = document.getElementById('result-image');
+<!-- SCRIPT XỬ LÝ TẢI TỆP CSV VÀ HIỂN THỊ HÌNH ẢNH KẾT QUẢ -->
+<script>
+    async function handleCSVUpload(event) {
+        const file = event.target.files[0];
+        if (!file) return;
 
-        // Tự động gửi tệp lên server ngay khi chọn xong tệp CSV qua khung dấu cộng
-        fileInput.addEventListener('change', async function() {
-            if (fileInput.files.length === 0) return;
+        // Kiểm tra định dạng phía client bắt buộc phải là .csv
+        if (!file.name.toLowerCase().endsWith('.csv')) {
+            alert("Vui lòng chỉ chọn tệp có định dạng .csv!");
+            event.target.value = '';
+            return;
+        }
 
-            const file = fileInput.files[0];
-            fileNameDiv.textContent = `Tệp đã chọn: ${file.name}`;
+        const formData = new FormData();
+        formData.append("file", file);
 
-            const formData = new FormData();
-            formData.append('file', file);
+        alert("Đang tải tệp CSV lên và xử lý tạo biểu đồ hình ảnh...");
 
-            loadingDiv.style.display = 'block';
-            errorDiv.textContent = '';
-            resultImg.style.display = 'none';
+        try {
+            const response = await fetch('/api/upload-csv', {
+                method: 'POST',
+                body: formData
+            });
 
-            try {
-                const response = await fetch('/api/upload-csv', {
-                    method: 'POST',
-                    body: formData
-                });
+            const result = await response.json();
 
-                const data = await response.json();
-                loadingDiv.style.display = 'none';
+            if (result.success) {
+                const container = document.getElementById('dynamic-image-container');
+                
+                const card = document.createElement('div');
+                card.className = "image-result-box";
+                card.style.background = "#181028";
+                card.style.border = "1px solid #8b5cf6";
+                card.style.padding = "20px";
+                card.style.borderRadius = "12px";
+                card.style.boxShadow = "0 4px 15px rgba(139, 92, 246, 0.2)";
+                
+                // Thay thế thẻ video bằng thẻ img hiển thị biểu đồ
+                card.innerHTML = `
+                    <h3 style="color: #c084fc; margin-bottom: 15px; text-align: center;">📊 Biểu Đồ Kết Quả Từ Tệp: ${result.filename}</h3>
+                    <div style="text-align: center;">
+                        <img src="${result.image_url}?t=${new Date().getTime()}" alt="Biểu đồ OHLC Max/Min" style="width: 100%; max-width: 100%; height: auto; border-radius: 8px; border: 2px solid #8b5cf6; object-fit: contain;">
+                    </div>
+                `;
 
-                if (response.ok && data.success) {
-                    // Hiển thị hình ảnh kết quả trả về từ server ngay bên dưới
-                    resultImg.src = data.image_url + '?t=' + new Date().getTime();
-                    resultImg.style.display = 'block';
-                } else {
-                    errorDiv.textContent = data.error || 'Đã xảy ra lỗi khi xử lý tệp.';
-                }
-            } catch (err) {
-                loadingDiv.style.display = 'none';
-                errorDiv.textContent = 'Lỗi kết nối tới máy chủ: ' + err.message;
+                container.appendChild(card);
+                // Tự động cuộn mượt xuống khung hình ảnh kết quả mới sinh ra ở đáy trang
+                card.scrollIntoView({ behavior: 'smooth' });
+            } else {
+                alert("Lỗi xử lý: " + result.error);
             }
-        });
-    </script>
+        } catch (err) {
+            console.error(err);
+            alert("Đã xảy ra lỗi kết nối đến server!");
+        }
+
+        event.target.value = '';
+    }
+</script>
 </body>
 </html>
