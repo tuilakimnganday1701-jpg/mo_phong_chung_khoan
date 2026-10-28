@@ -185,11 +185,9 @@
             </div>
         </section>
 
-        <!-- Phân tích rủi ro -->
         <section class="anomaly-section" id="rui-ro-section">
             <h2>Phân tích các giá trị bất thường & Rủi ro (Outliers)</h2>
             
-            <!-- Ảnh outliers đã được bọc gọn gàng, không bị tràn màn hình -->
             <div class="center-img-box">
                 <h3>Giá trị bất thường (Outliers)</h3>
                 <img src="{{ url_for('static', path='images/outliers_values.png') }}" alt="Giá trị bất thường">
@@ -217,7 +215,7 @@
         <section class="conclusion-section" id="ket-luan-section">
             <h2>KẾT LUẬN & ĐÁNH GIÁ CHUNG</h2>
             <div class="highlight-box">
-                <p>🚀 <strong>Xu hướng chủ đạo:</strong> Giá cổ phiếu trong suốt chu kỳ tuân theo mô hình chữ U kép, trải qua các giai đoạn biến động rõ rệt từ vùng đỉnh đầu năm (Quý 1 với giá trung bình 14,077.56), sụt giảm sâu và tạo đáy tại Quý 2 (7,344.91), phục hồi tích lũy ở Quý 3 (8,913.31) trước khi bứt phá mạnh mẽ trở lại ở Quý 4 (14,879.25).</p>
+                <p>🚀 <strong>Xu hướng chủ đạo:</strong> Giá cổ phiếu trong suốt chu kỳ tuân theo mô hình chữ U kép, trải qua các giai đoạn biến động rõ rệt từ vùng đỉnh đầu năm (Quý 1 với giá trung bình 14,077.56), sụt giảm sâu và tạo đáy tại Quý 2 (7,344.91), phục hồi tích lũy ở Quý 3 (8,913.31) trước khi bứt phá mạnh mẽ trở lại ở Quý 4 (14,879.25)).</p>
                 <p>⚠️ <strong>Điểm lưu ý:</strong> Đây là một tài sản có tính đầu cơ cao, độ nhạy cảm lớn trước các cú sốc thông tin và tiềm ẩn rủi ro biến động cấu trúc mạnh mẽ, đòi hỏi nhà đầu tư phải theo dõi sát sao các tín hiệu kỹ thuật để quản trị rủi ro.</p>
             </div>
         </section>
@@ -249,7 +247,6 @@
     </div>
 </main>
 
-<!-- SCRIPT XỬ LÝ TẢI TỆP CSV VÀ HIỂN THỊ HÌNH ẢNH KẾT QUẢ -->
 <script>
     async function handleCSVUpload(event) {
         const file = event.target.files[0];
@@ -286,7 +283,6 @@
                 card.style.borderRadius = "12px";
                 card.style.boxShadow = "0 4px 15px rgba(139, 92, 246, 0.2)";
                 
-                // Thay thế thẻ video bằng thẻ img hiển thị biểu đồ
                 card.innerHTML = `
                     <h3 style="color: #c084fc; margin-bottom: 15px; text-align: center;">📊 Biểu Đồ Kết Quả Từ Tệp: ${result.filename}</h3>
                     <div style="text-align: center;">
@@ -295,7 +291,6 @@
                 `;
 
                 container.appendChild(card);
-                // Tự động cuộn mượt xuống khung hình ảnh kết quả mới sinh ra ở đáy trang
                 card.scrollIntoView({ behavior: 'smooth' });
             } else {
                 alert("Lỗi xử lý: " + result.error);
